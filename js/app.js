@@ -27,13 +27,25 @@ const validarCampo = (event) => {
 
   const valorInput = event.target.value.trim();
   const elementoHTML = event.target.parentElement;
+  const typo = event.target.id;
 
   if (valorInput === "") {
     mostrarAlerta(elementoHTML, `Este campo ${event.target.id} es obligatorio`);
     return;
   };
 
-  elimiinarAlerta(elementoHTML);
+  if (event.target.id === 'email') {
+
+    if (!validarEmail(valorInput)) {
+      mostrarAlerta(elementoHTML, 'Email no valido');
+      return;
+    };
+  };
+
+  eliminarAlerta(elementoHTML);
+
+  email[typo] = valorInput;
+
 };
 
 
@@ -42,7 +54,7 @@ const validarCampo = (event) => {
 
 const mostrarAlerta = (elementoHTML, mensaje, tipo) => {
 
-  elimiinarAlerta(elementoHTML);
+  eliminarAlerta(elementoHTML);
 
   const alerta = document.createElement('p');
   alerta.textContent = mensaje;
@@ -57,10 +69,20 @@ const mostrarAlerta = (elementoHTML, mensaje, tipo) => {
 
 
 
-const elimiinarAlerta = (elementoHTML) => {
+const eliminarAlerta = (elementoHTML) => {
 
   const alertaElement = elementoHTML.querySelector('.error') || elementoHTML.querySelector('.succes');
 
   if (alertaElement) alertaElement.remove();
 
+};
+
+
+
+
+const validarEmail = (valorInput) => {
+
+  const regex = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+
+  return regex.test(valorInput);
 };
