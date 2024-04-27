@@ -123,13 +123,7 @@ const resetarFormulario = (event) => {
 
   event.preventDefault();
 
-  email.email = '';
-  email.asunto = '';
-  email.mensaje = '';
-
-  habilitarDesabilitarBoton(false);
-
-  formularioElement.reset();
+  limpiarFormulario();
 };
 
 
@@ -153,5 +147,27 @@ const mostrarSpinner = () => {
   setTimeout(() => {
     spinnerElement.classList.remove('flex');
     spinnerElement.classList.add('hidden');
+    limpiarFormulario();
+
+
+    mostrarAlerta(formularioElement, 'Email enviado correctamente', true);
+
+    setTimeout(() => {
+      eliminarAlerta(formularioElement);
+    }, 3000);
   }, 3000);
+};
+
+
+
+
+const limpiarFormulario = () => {
+
+  email.email = '';
+  email.asunto = '';
+  email.mensaje = '';
+
+  habilitarDesabilitarBoton(false);
+
+  formularioElement.reset();
 };
