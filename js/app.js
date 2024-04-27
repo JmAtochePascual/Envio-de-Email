@@ -5,6 +5,7 @@ const inputMensajeElement = document.querySelector('#mensaje');
 const botonSubmitElement = document.querySelector('#formulario button[type="submit"]');
 const botonResetElement = document.querySelector('#formulario button[type="reset"]');
 const formularioElement = document.querySelector('#formulario');
+const spinnerElement = document.querySelector('#spinner');
 const email = {
   email: '',
   asunto: '',
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   inputAsuntoElement.addEventListener('blur', validarCampo);
   inputMensajeElement.addEventListener('blur', validarCampo);
   botonResetElement.addEventListener('click', resetarFormulario);
+  formularioElement.addEventListener('submit', enviarEmail);
 });
 
 
@@ -128,4 +130,14 @@ const resetarFormulario = (event) => {
   habilitarDesabilitarBoton(false);
 
   formularioElement.reset();
+};
+
+
+
+
+
+const enviarEmail = (event) => {
+  event.preventDefault();
+
+  console.log('Enviando email...');
 };
