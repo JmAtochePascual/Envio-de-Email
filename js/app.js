@@ -2,6 +2,7 @@
 const inputEmailElement = document.querySelector('#email');
 const inputAsuntoElement = document.querySelector('#asunto');
 const inputMensajeElement = document.querySelector('#mensaje');
+const botonSubmitElement = document.querySelector('#formulario button[type="submit"]');
 const email = {
   email: '',
   asunto: '',
@@ -29,23 +30,32 @@ const validarCampo = (event) => {
   const elementoHTML = event.target.parentElement;
   const typo = event.target.id;
 
+  // Validar campo
   if (valorInput === "") {
     mostrarAlerta(elementoHTML, `Este campo ${event.target.id} es obligatorio`);
+    habilitarDesabilitarBoton(false)
     return;
   };
 
+  // Validar email
   if (event.target.id === 'email') {
 
     if (!validarEmail(valorInput)) {
       mostrarAlerta(elementoHTML, 'Email no valido');
+      habilitarDesabilitarBoton(false);
       return;
     };
   };
 
+  // Eliminar alerta
   eliminarAlerta(elementoHTML);
 
+  // Guardar datos en el objeto
   email[typo] = valorInput;
 
+  if (Object.values(email).includes('')) return;
+
+  habilitarDesabilitarBoton(true);
 };
 
 
@@ -86,3 +96,17 @@ const validarEmail = (valorInput) => {
 
   return regex.test(valorInput);
 };
+
+
+
+
+const habilitarDesabilitarBoton = (estado) => {
+
+  if (estado) {
+    botonSubmitElement.classList.remove('cursor-not-allowed', 'opacity-50');
+    botonSubmitElement.disabled = false;
+  } else {
+    botonSubmitElement.classList.add('cursor-not-allowed', 'opacity-50');
+    botonSubmitElement.disabled = true;
+  };
+}
