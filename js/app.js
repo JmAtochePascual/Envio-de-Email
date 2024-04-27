@@ -139,5 +139,19 @@ const resetarFormulario = (event) => {
 const enviarEmail = (event) => {
   event.preventDefault();
 
-  console.log('Enviando email...');
+  mostrarSpinner();
+};
+
+
+
+
+
+const mostrarSpinner = () => {
+  spinnerElement.classList.add('flex');
+  spinnerElement.classList.remove('hidden');
+
+  setTimeout(() => {
+    spinnerElement.classList.remove('flex');
+    spinnerElement.classList.add('hidden');
+  }, 3000);
 };
