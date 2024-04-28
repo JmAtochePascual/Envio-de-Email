@@ -75,7 +75,7 @@ const mostrarAlerta = (elementoHTML, mensaje, tipo) => {
   alerta.textContent = mensaje;
   alerta.classList.add('text-white', 'p-2', 'mt-5', 'text-center');
 
-  tipo ? alerta.classList.add('bg-green-500', 'error') : alerta.classList.add('bg-red-600', 'succes');
+  tipo ? alerta.classList.add('bg-green-500', 'succes') : alerta.classList.add('bg-red-600', 'error');
 
   elementoHTML.appendChild(alerta);
 };
@@ -122,6 +122,14 @@ const habilitarDesabilitarBoton = (estado) => {
 const resetarFormulario = (event) => {
 
   event.preventDefault();
+
+  const alertasElement = document.querySelectorAll('.error');
+  const alertas = [...alertasElement];
+
+  while (alertas[0]) {
+    alertas[0].remove();
+    alertas.shift();
+  }
 
   limpiarFormulario();
 };
