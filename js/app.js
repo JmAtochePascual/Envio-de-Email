@@ -1,181 +1,143 @@
-// Variables 
+// Variables
 const inputEmailElement = document.querySelector('#email');
 const inputAsuntoElement = document.querySelector('#asunto');
 const inputMensajeElement = document.querySelector('#mensaje');
-const botonSubmitElement = document.querySelector('#formulario button[type="submit"]');
-const botonResetElement = document.querySelector('#formulario button[type="reset"]');
 const formularioElement = document.querySelector('#formulario');
-const spinnerElement = document.querySelector('#spinner');
-const email = {
+const buttonEnviarElement = document.querySelector('#enviar');
+const buttonResetElement = document.querySelector('#resetear');
+const objMensaje = {
   email: '',
   asunto: '',
   mensaje: ''
 };
 
+// Funcion que inicializa la aplicacion
+const init = async (event) => {
+  event.preventDefault();
 
+  obtenerDatosFormulario();
 
-
-// Cargar eventos
-document.addEventListener('DOMContentLoaded', () => {
-  // Event Listeners
-  inputEmailElement.addEventListener('blur', validarCampo);
-  inputAsuntoElement.addEventListener('blur', validarCampo);
-  inputMensajeElement.addEventListener('blur', validarCampo);
-  botonResetElement.addEventListener('click', resetarFormulario);
-  formularioElement.addEventListener('submit', enviarEmail);
-});
-
-
-
-
-
-const validarCampo = (event) => {
-
-  const valorInput = event.target.value.trim();
-  const elementoHTML = event.target.parentElement;
-  const typo = event.target.id;
-
-  // Validar campo
-  if (valorInput === "") {
-    mostrarAlerta(elementoHTML, `Este campo ${event.target.id} es obligatorio`);
-    habilitarDesabilitarBoton(false)
+  if (!validarObjetoMensaje()) {
+    mostrarAlerta('Todos los campos son obligatorios', false);
     return;
-  };
+  }
 
-  // Validar email
-  if (event.target.id === 'email') {
+  desabilitarBotonEnviar();
 
-    if (!validarEmail(valorInput)) {
-      mostrarAlerta(elementoHTML, 'Email no valido');
-      habilitarDesabilitarBoton(false);
-      return;
-    };
-  };
+  // Mostrar un spinner
+  await mostrarSpinner();
 
-  // Eliminar alerta
-  eliminarAlerta(elementoHTML);
+  // Mostrar una alerta de envio exitoso
+  mostrarAlerta('Mensaje enviado correctamente', true);
 
-  // Guardar datos en el objeto
-  email[typo] = valorInput;
+  formularioElement.reset();
 
-  if (Object.values(email).includes('')) return;
+  limpiarObjetoMensaje();
+}
 
-  habilitarDesabilitarBoton(true);
-};
-
+// Funcion que obtiene los datos del formulario
+const obtenerDatosFormulario = () => {
+  objMensaje.email = inputEmailElement.value.trim();
+  objMensaje.asunto = inputAsuntoElement.value.trim();
+  objMensaje.mensaje = inputMensajeElement.value.trim();
+}
 
 
+// Funcion que valida los datos del formulario
+const validarObjetoMensaje = () => Object.values(objMensaje).every(valor => valor !== '');
 
 
-const mostrarAlerta = (elementoHTML, mensaje, tipo) => {
+// Funcion que muestra una alerta
+const mostrarAlerta = (mensaje, tipo) => {
 
-  eliminarAlerta(elementoHTML);
+  // Validar si la alerta ya existe
+  const alerta = document.querySelector('.bg-red-600');
 
-  const alerta = document.createElement('p');
-  alerta.textContent = mensaje;
-  alerta.classList.add('text-white', 'p-2', 'mt-5', 'text-center');
+  if (alerta) {
+    return;
+  }
 
-  tipo ? alerta.classList.add('bg-green-500', 'succes') : alerta.classList.add('bg-red-600', 'error');
-
-  elementoHTML.appendChild(alerta);
-};
-
-
-
-
-
-const eliminarAlerta = (elementoHTML) => {
-
-  const alertaElement = elementoHTML.querySelector('.error') || elementoHTML.querySelector('.succes');
-
-  if (alertaElement) alertaElement.remove();
-
-};
+  // Crear la alerta
+  const alertaElement = document.createElement('p');
+  alertaElement.textContent = mensaje;
+  alertaElement.className = `text-white p-3 mb-8 text-center ${tipo ? 'bg-green-500' : 'bg-red-600'}`;
 
 
+  // Muestra la alteran al inicio del formulario
+  formularioElement.insertBefore(alertaElement, formularioElement.firstChild);
 
 
-const validarEmail = (valorInput) => {
-
-  const regex = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-
-  return regex.test(valorInput);
-};
-
+  // Elimina la alerta despues de 3 segundos
+  setTimeout(() => {
+    alertaElement.remove();
+  }, 3000);
+}
 
 
+// Muestra un spinner
+const mostrarSpinner = () => {
+  return new Promise((resolve) => {
+    const spinner = document.querySelector('#spinner');
+    spinner.classList.remove('hidden');
 
-const habilitarDesabilitarBoton = (estado) => {
+    formularioElement.appendChild(spinner);
 
-  if (estado) {
-    botonSubmitElement.classList.remove('cursor-not-allowed', 'opacity-50');
-    botonSubmitElement.disabled = false;
+    setTimeout(() => {
+      spinner.classList.add('hidden');
+      resolve();
+    }, 3000);
+  });
+}
+
+// desabilitar el boton de enviar si los campos estan vacios
+const desabilitarBotonEnviar = () => {
+  buttonEnviarElement.disabled = true;
+  buttonEnviarElement.classList.add('opacity-50');
+}
+
+// Habilitar el boton de enviar si los campos estan llenos
+const habilitarBotonEnviar = () => {
+  buttonEnviarElement.disabled = false;
+  buttonEnviarElement.classList.remove('opacity-50');
+}
+
+// validar si todos las propiedades del objeto tienen un valor para habilitar el boton de enviar
+const validarBotonEnviar = (evento) => {
+
+  objMensaje[evento.target.name] = evento.target.value.trim();
+
+  if (validarObjetoMensaje()) {
+    habilitarBotonEnviar();
   } else {
-    botonSubmitElement.classList.add('cursor-not-allowed', 'opacity-50');
-    botonSubmitElement.disabled = true;
-  };
+    desabilitarBotonEnviar();
+  }
+}
+
+// Limpiar los campos del objeto mensaje
+const limpiarObjetoMensaje = () => {
+  objMensaje.email = '';
+  objMensaje.asunto = '';
+  objMensaje.mensaje = '';
+}
+
+
+// Funcion que resetea y limpia el formulario
+const limpiarFormulario = () => {
+  limpiarObjetoMensaje();
+  formularioElement.reset();
+  desabilitarBotonEnviar();
 }
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+  desabilitarBotonEnviar();
 
-const resetarFormulario = (event) => {
+  inputAsuntoElement.addEventListener('input', validarBotonEnviar);
+  inputMensajeElement.addEventListener('input', validarBotonEnviar);
+  inputEmailElement.addEventListener('input', validarBotonEnviar);
 
-  event.preventDefault();
+  formularioElement.addEventListener('submit', init);
 
-  const alertasElement = document.querySelectorAll('.error');
-  const alertas = [...alertasElement];
-
-  while (alertas[0]) {
-    alertas[0].remove();
-    alertas.shift();
-  }
-
-  limpiarFormulario();
-};
-
-
-
-
-
-const enviarEmail = (event) => {
-  event.preventDefault();
-
-  mostrarSpinner();
-};
-
-
-
-
-
-const mostrarSpinner = () => {
-  spinnerElement.classList.add('flex');
-  spinnerElement.classList.remove('hidden');
-
-  setTimeout(() => {
-    spinnerElement.classList.remove('flex');
-    spinnerElement.classList.add('hidden');
-    limpiarFormulario();
-
-
-    mostrarAlerta(formularioElement, 'Email enviado correctamente', true);
-
-    setTimeout(() => {
-      eliminarAlerta(formularioElement);
-    }, 3000);
-  }, 3000);
-};
-
-
-
-
-const limpiarFormulario = () => {
-
-  email.email = '';
-  email.asunto = '';
-  email.mensaje = '';
-
-  habilitarDesabilitarBoton(false);
-
-  formularioElement.reset();
-};
+  buttonResetElement.addEventListener('click', limpiarFormulario);
+});

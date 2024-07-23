@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Envio de Emails</title>
+	<title>Envio de Emails 2</title>
 	<link rel="stylesheet" href="dist/app.css">
 	<link rel="stylesheet" href="dist/spinner.css">
 </head>
@@ -16,7 +16,7 @@
 				<div class="flex flex-col space-y-2">
 					<label for="email" class="font-regular font-medium">Email:</label>
 					<input id="email" type="email" name="email" placeholder="Email Destino, ej: mkt@empresa.com"
-						class="border border-gray-300 px-3 py-2 rounded-lg" />
+						class="border border-gray-300 px-3 py-2 rounded-lg" noValidate />
 				</div>
 
 				<div class="flex flex-col space-y-2">
@@ -32,8 +32,8 @@
 				</div>
 
 				<div id="botones" class="flex gap-5">
-					<button type="submit"
-						class="flex-1 bg-pink-600 text-white flex justify-center gap-2 items-center p-3 opacity-50" disabled>
+					<button id="enviar" type="submit"
+						class="flex-1 bg-pink-600 text-white flex justify-center gap-2 items-center p-3">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 							stroke="currentColor" class="w-6 h-6">
 							<path stroke-linecap="round" stroke-linejoin="round"
@@ -42,7 +42,8 @@
 						Enviar
 					</button>
 
-					<button class="flex-1 bg-gray-800 text-white flex justify-center gap-2 items-center p-3" type="reset">
+					<button id="resetear" class="flex-1 bg-gray-800 text-white flex justify-center gap-2 items-center p-3"
+						type="reset">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 							stroke="currentColor" class="w-6 h-6">
 							<path stroke-linecap="round" stroke-linejoin="round"
