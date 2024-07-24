@@ -7,7 +7,7 @@ import {
   spinnerElement
 } from "../utilities/elementos.js";
 
-import { habilitarBotonEnviar, mostrarSpinner, validarCampos } from "../utilities/funciones.js";
+import { habilitarBotonEnviar, mostrarMensaje, mostrarSpinner, validarCampos } from "../utilities/funciones.js";
 
 // Enviar mensaje
 const enviarMensaje = async (vent) => {
@@ -19,7 +19,8 @@ const enviarMensaje = async (vent) => {
   // Mostrar spinner
   await mostrarSpinner();
 
-  console.log(email);
+  // Mostrar mensaje de exito
+  mostrarMensaje('Email enviado correctamente');
 }
 
 

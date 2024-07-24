@@ -1,4 +1,4 @@
-import { botonEnviarElement, inputAsuntoElement, inputEmailElement, inputMensajeElement, spinnerElement } from './elementos.js';
+import { botonEnviarElement, formularioElement, inputAsuntoElement, inputEmailElement, inputMensajeElement, spinnerElement } from './elementos.js';
 
 
 // Validar si todos los campos del formulario estan llenos
@@ -29,8 +29,24 @@ const mostrarSpinner = () => new Promise((resolve) => {
 });
 
 
+// Mostrar mensaje de exito o error
+const mostrarMensaje = (mensaje) => {
+
+  const mensajeElement = document.createElement('p');
+  mensajeElement.textContent = mensaje;
+
+  mensajeElement.classList.add('text-center', 'p-3', 'mb-3', 'text-white', 'font-bold', 'uppercase', 'rounded', 'shadow', 'mt-3', 'bg-green-500');
+
+  formularioElement.appendChild(mensajeElement);
+
+  setTimeout(() => {
+    mensajeElement.remove();
+  }, 3000);
+}
+
 export {
   habilitarBotonEnviar,
   validarCampos,
-  mostrarSpinner
+  mostrarSpinner,
+  mostrarMensaje
 }
