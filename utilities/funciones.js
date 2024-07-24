@@ -1,4 +1,4 @@
-import { botonEnviarElement, inputAsuntoElement, inputEmailElement, inputMensajeElement } from './elementos.js';
+import { botonEnviarElement, inputAsuntoElement, inputEmailElement, inputMensajeElement, spinnerElement } from './elementos.js';
 
 
 // Validar si todos los campos del formulario estan llenos
@@ -17,7 +17,20 @@ const habilitarBotonEnviar = (estado) => {
   estado ? botonEnviarElement.classList.remove('opacity-50') : botonEnviarElement.classList.add('opacity-50');
 }
 
+
+//  Mostrar Spinner
+const mostrarSpinner = () => new Promise((resolve) => {
+  spinnerElement.classList.remove('hidden');
+
+  setTimeout(() => {
+    spinnerElement.classList.add('hidden');
+    resolve();
+  }, 3000);
+});
+
+
 export {
   habilitarBotonEnviar,
-  validarCampos
+  validarCampos,
+  mostrarSpinner
 }

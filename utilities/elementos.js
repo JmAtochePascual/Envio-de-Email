@@ -4,6 +4,7 @@ const inputMensajeElement = document.querySelector('#mensaje');
 const formularioElement = document.querySelector('#formulario');
 const botonEnviarElement = document.querySelector('#enviar');
 const botonResetElement = document.querySelector('#resetear');
+const spinnerElement = document.querySelector('#spinner');
 
 
 export {
@@ -12,5 +13,6 @@ export {
   inputMensajeElement,
   formularioElement,
   botonEnviarElement,
-  botonResetElement
+  botonResetElement,
+  spinnerElement
 }
