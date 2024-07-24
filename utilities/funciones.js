@@ -1,4 +1,11 @@
-import { botonEnviarElement, formularioElement, inputAsuntoElement, inputEmailElement, inputMensajeElement, spinnerElement } from './elementos.js';
+import {
+  botonEnviarElement,
+  formularioElement,
+  inputAsuntoElement,
+  inputEmailElement,
+  inputMensajeElement,
+  spinnerElement
+} from './elementos.js';
 
 
 // Validar si todos los campos del formulario estan llenos

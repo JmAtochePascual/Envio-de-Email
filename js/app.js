@@ -3,8 +3,8 @@ import Email from "../utilities/Email.js";
 import {
   formularioElement,
   inputAsuntoElement,
-  inputEmailElement, inputMensajeElement,
-  spinnerElement
+  inputEmailElement,
+  inputMensajeElement,
 } from "../utilities/elementos.js";
 
 import { habilitarBotonEnviar, mostrarMensaje, mostrarSpinner, validarCampos } from "../utilities/funciones.js";
@@ -21,6 +21,12 @@ const enviarMensaje = async (vent) => {
 
   // Mostrar mensaje de exito
   mostrarMensaje('Email enviado correctamente');
+
+  // Resetear formulario
+  formularioElement.reset();
+
+  // Deshabilitar boton de enviar
+  habilitarBotonEnviar(false);
 }
 
 
