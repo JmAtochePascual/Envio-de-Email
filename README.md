@@ -57,6 +57,6 @@ Este proyecto está bajo la licencia [MIT](https://opensource.org/licenses/MIT).
 
 ## 🌐 Ver Proyecto en la WEB
 
-Puedes ver el proyecto en funcionamiento [aquí](https://jmatochepacual.github.io/Envio-de-Email).
+Puedes ver el proyecto en funcionamiento [aquí](https://jmatochepascual.github.io/Envio-de-Email/).
 
 Todos los derechos reservados Envio de Emails 2024 ©.
