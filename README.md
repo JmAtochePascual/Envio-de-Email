@@ -4,16 +4,21 @@ Este proyecto consiste en una aplicación de formulario de contacto desarrollada
 
 ## 🎯 Contenido
 
-1. [📝 Características](#📝-características)
-2. [🛠️ Tecnologías y Herramientas](#🛠️-tecnologías-y-herramientas)
-3. [🚀 Estructura del Proyecto](#🚀-estructura-del-proyecto)
-4. [🧑‍💻 Uso](#🧑‍💻-uso)
-5. [🏗️Contribución](#🏗️contribución)
-6. [✨ Licencia](#✨-licencia)
-7. [🙈 Imagen de Rereferencia](#🙈-imagen-de-rereferencia)
-8. [🌐 Ver Proyecto en la WEB](#🌐-ver-proyecto-en-la-web)
+1. 📝[Descripción](#descripción)
+2. 🛠️[Tecnologías y Herramientas](#tecnologías-y-herramientas)
+3. 🚀[Estructura del Proyecto](#estructura-del-proyecto)
+4. 🧑‍💻[Uso](#uso)
+5. 📌[Instalación](#instalación)
+6. 🏗️[Contribución](#contribución)
+7. ✨[Licencia](#licencia)
+8. 🙈[Imagen de Referencia](#imagen-de-rereferencia)
+9. 🌐[Ver Proyecto en la WEB](#ver-proyecto-en-la-web)
 
-## 📝 Características
+## Descripción
+
+Este proyecto está desarrollado en JavaScript, utilizando clases para la estructura y organización del código. Además, se emplea el paradigma de programación orientada a objetos (POO) para manejar la lógica de la aplicación de manera eficiente y estructurada.
+
+## Características
 
 - **Validación de Formulario:** Los campos de email, asunto y mensaje son validados en el cliente antes de permitir el envío. El campo de email cuenta con una validación específica para asegurar que el formato del correo sea correcto.
 - **Alertas Dinámicas:** Se muestran mensajes de error o éxito en la interfaz, dependiendo de la validez de la información proporcionada y del resultado del proceso de envío.
@@ -21,23 +26,27 @@ Este proyecto consiste en una aplicación de formulario de contacto desarrollada
 - **Funcionalidad de Reinicio:** Incluye un botón para limpiar el formulario y resetear todos los campos, así como para eliminar las alertas activas.
 - **Simulación de Envío:** Integra una simulación de envío de email con un spinner que indica que el proceso está en curso, mejorando la experiencia interactiva del usuario.
 
-## 🛠️ Tecnologías y Herramientas
+## Tecnologías y Herramientas
 
 - **HTML:** Estructura de la página.
 - **CSS:** Estilos de la página utilizando Normalize.css y Skeleton CSS para un diseño responsivo.
 - **JavaScript:** Lógica para las interacciones del carrito de compras.
 
-## 🚀 Estructura del Proyecto
+## Estructura del Proyecto
 
 - **dist/**: Carpeta con los estilos compilados.
 - **js/**: Carpeta código con lógica del proyecto.
 - **index.html**: Página principal.
 
-## 🧑‍💻 Uso
+## Instalación
+
+No se requiere instalación adicional para utilizar este proyecto.
+
+## Uso
 
 Abrir el archivo index.html en un navegador de su elección.
 
-## 🏗️Contribución
+## Contribución
 
 Si estás interesado en contribuir al proyecto, por favor sigue estos pasos:
 
@@ -47,15 +56,15 @@ Si estás interesado en contribuir al proyecto, por favor sigue estos pasos:
 4. Empuja la rama (`git push origin mi-nueva-característica`).
 5. Abre un pull request.
 
-## ✨ Licencia
+## Licencia
 
 Este proyecto está bajo la licencia [MIT](https://opensource.org/licenses/MIT).
 
-## 🙈 Imagen de Rereferencia
+## Imagen de Rereferencia
 
 ![](https://i.postimg.cc/bYnyBHBz/Envio-emails.png)
 
-## 🌐 Ver Proyecto en la WEB
+## Ver Proyecto en la WEB
 
 Puedes ver el proyecto en funcionamiento [aquí](https://jmatochepascual.github.io/Envio-de-Email/).
 
