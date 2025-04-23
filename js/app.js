@@ -1,43 +1,78 @@
-import Email from "../utilities/Email.js";
+const inputEmailElement = document.querySelector('#email');
+const inputAsuntoElement = document.querySelector('#asunto');
+const inputMensajeElement = document.querySelector('#mensaje');
+const formularioElement = document.querySelector('#formulario');
+const botonEnviarElement = document.querySelector('#enviar');
+const botonResetElement = document.querySelector('#resetear');
+const spinnerElement = document.querySelector('#spinner');
+const email = {
+  email: '',
+  asunto: '',
+  mensaje: ''
+};
 
-import {
-  formularioElement,
-  inputAsuntoElement,
-  inputEmailElement,
-  inputMensajeElement,
-} from "../utilities/elementos.js";
+const sendEmail = async (event) => {
+  event.preventDefault();
 
-import { habilitarBotonEnviar, mostrarMensaje, mostrarSpinner, validarCampos } from "../utilities/funciones.js";
+  await showSpinner();
 
-// Enviar mensaje
-const enviarMensaje = async (vent) => {
-  vent.preventDefault();
-
-  // Crear un nuevo objeto Email
-  const email = new Email(inputEmailElement.value.trim(), inputAsuntoElement.value.trim(), inputMensajeElement.value.trim());
-
-  // Mostrar spinner
-  await mostrarSpinner();
-
-  // Mostrar mensaje de exito
-  mostrarMensaje('Email enviado correctamente');
-
-  // Resetear formulario
   formularioElement.reset();
 
-  // Deshabilitar boton de enviar
-  habilitarBotonEnviar(false);
-}
+  resetEmail();
 
+  validateActiveButton(email);
 
-// Eventos
+  showNotificaction('Email enviado correctamente!');
+};
+
+const setValueEmail = (event) => {
+  email[event.target.name] = event.target.value.trim();
+  validateActiveButton(email);
+};
+
+const validateActiveButton = (email) => {
+  if (Object.values(email).every(value => value !== '')) {
+    botonEnviarElement.disabled = false;
+    botonEnviarElement.classList.remove('button-disbled');
+    return;
+  };
+
+  botonEnviarElement.disabled = true;
+  botonEnviarElement.classList.add('button-disbled');
+};
+
+const showSpinner = () => new Promise((resolve) => {
+  spinnerElement.classList.remove('hidden');
+
+  setTimeout(() => {
+    spinnerElement.classList.add('hidden');
+    resolve();
+  }, 3000);
+});
+
+const resetEmail = () => {
+  email.email = '';
+  email.asunto = '';
+  email.mensaje = '';
+};
+
+const showNotificaction = (message) => {
+
+  const messageElement = document.createElement('p');
+  messageElement.textContent = message;
+
+  messageElement.classList.add('text-center', 'p-3', 'mb-3', 'text-white', 'font-bold', 'uppercase', 'rounded', 'shadow', 'mt-3', 'bg-green-500');
+
+  formularioElement.appendChild(messageElement);
+
+  setTimeout(() => {
+    messageElement.remove();
+  }, 3000);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  habilitarBotonEnviar(false);
-
-  inputEmailElement.addEventListener('input', validarCampos);
-  inputAsuntoElement.addEventListener('input', validarCampos);
-  inputMensajeElement.addEventListener('input', validarCampos);
-
-  formularioElement.addEventListener('submit', enviarMensaje);
-
+  inputEmailElement.addEventListener('input', setValueEmail);
+  inputAsuntoElement.addEventListener('input', setValueEmail);
+  inputMensajeElement.addEventListener('input', setValueEmail);
+  formularioElement.addEventListener('submit', sendEmail);
 });

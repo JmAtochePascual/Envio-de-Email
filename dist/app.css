@@ -706,3 +706,8 @@ video {
 .mb-8 {
   margin-bottom: 24px;
 }
+
+.button-disbled {
+  opacity: .5;
+  cursor: not-allowed;
+}

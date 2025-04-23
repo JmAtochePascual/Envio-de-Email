@@ -15,14 +15,14 @@ const validarCampos = () => {
   const mensajeValor = inputMensajeElement.value.trim();
 
   [emialValor, asuntoValor, mensajeValor].every(valor => valor !== '') ? habilitarBotonEnviar(true) : habilitarBotonEnviar(false);
-}
+};
 
 
 // Habilitar o deshabilitar el boton de enviar
 const habilitarBotonEnviar = (estado) => {
   botonEnviarElement.disabled = estado ? false : true;
   estado ? botonEnviarElement.classList.remove('opacity-50') : botonEnviarElement.classList.add('opacity-50');
-}
+};
 
 
 //  Mostrar Spinner
@@ -49,7 +49,7 @@ const mostrarMensaje = (mensaje) => {
   setTimeout(() => {
     mensajeElement.remove();
   }, 3000);
-}
+};
 
 export {
   habilitarBotonEnviar,
