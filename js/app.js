@@ -1,28 +1,35 @@
+import { isValidEmail } from './helpers/is-validateEmail.js';
+import { resetEmail } from './helpers/email.js';
+import { showNotification } from './components/showNotification.js';
+import { showSpinner } from './components/showSpinner.js';
+
 const inputEmailElement = document.querySelector('#email');
 const inputAsuntoElement = document.querySelector('#asunto');
 const inputMensajeElement = document.querySelector('#mensaje');
 const formularioElement = document.querySelector('#formulario');
 const botonEnviarElement = document.querySelector('#enviar');
-const botonResetElement = document.querySelector('#resetear');
-const spinnerElement = document.querySelector('#spinner');
-const email = {
-  email: '',
-  asunto: '',
-  mensaje: ''
-};
 
 const sendEmail = async (event) => {
   event.preventDefault();
 
+  if (!isValidEmail(email.email)) {
+    botonEnviarElement.disabled = true;
+    botonEnviarElement.classList.add('button-disbled');
+
+    showNotification('El email no es válido!', 'error', formularioElement);
+    await showSpinner();
+    return;
+  }
+
+  botonEnviarElement.disabled = true;
+  botonEnviarElement.classList.add('button-disbled');
+
   await showSpinner();
-
   formularioElement.reset();
-
-  resetEmail();
-
+  resetEmail(email);
   validateActiveButton(email);
 
-  showNotificaction('Email enviado correctamente!');
+  showNotification('Email enviado correctamente!', 'success', formularioElement);
 };
 
 const setValueEmail = (event) => {
@@ -31,43 +38,14 @@ const setValueEmail = (event) => {
 };
 
 const validateActiveButton = (email) => {
-  if (Object.values(email).every(value => value !== '')) {
+  if (Object.values(email).every((value) => value !== '')) {
     botonEnviarElement.disabled = false;
     botonEnviarElement.classList.remove('button-disbled');
     return;
-  };
+  }
 
   botonEnviarElement.disabled = true;
   botonEnviarElement.classList.add('button-disbled');
-};
-
-const showSpinner = () => new Promise((resolve) => {
-  spinnerElement.classList.remove('hidden');
-
-  setTimeout(() => {
-    spinnerElement.classList.add('hidden');
-    resolve();
-  }, 3000);
-});
-
-const resetEmail = () => {
-  email.email = '';
-  email.asunto = '';
-  email.mensaje = '';
-};
-
-const showNotificaction = (message) => {
-
-  const messageElement = document.createElement('p');
-  messageElement.textContent = message;
-
-  messageElement.classList.add('text-center', 'p-3', 'mb-3', 'text-white', 'font-bold', 'uppercase', 'rounded', 'shadow', 'mt-3', 'bg-green-500');
-
-  formularioElement.appendChild(messageElement);
-
-  setTimeout(() => {
-    messageElement.remove();
-  }, 3000);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -75,4 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   inputAsuntoElement.addEventListener('input', setValueEmail);
   inputMensajeElement.addEventListener('input', setValueEmail);
   formularioElement.addEventListener('submit', sendEmail);
+
+  botonEnviarElement.disabled = true;
+  botonEnviarElement.classList.add('button-disbled');
 });
